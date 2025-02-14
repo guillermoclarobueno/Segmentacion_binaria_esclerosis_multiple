@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segmentación de Imágenes NIfTI</title>
+    <script>
+        async function process2D() {
+            const response = await fetch('http://127.0.0.1:8000/process_2d/', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('message').innerText = data.message;
+        }
+
+        async function process3D() {
+            const response = await fetch('http://127.0.0.1:8000/process_3d/', { method: 'POST' });
+            const data = await response.json();
+            document.getElementById('message').innerText = data.message;
+        }
+
+        async function visualize3D() {
+            const response = await fetch('http://127.0.0.1:8000/visualizar_3d/', { method: 'GET' });
+            const data = await response.json();
+            if (data.error) {
+                document.getElementById('message').innerText = data.error;
+            } else {
+                document.getElementById('message').innerText = "Visualización 3D iniciada. Verifica la ventana emergente.";
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: url('imagenes/fondo2.png') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 0 30px;
+        }
+
+        .image-placeholder {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-2D { background-color: #007BFF; color: white; }
+        .btn-3D { background-color: #28A745; color: white; }
+        .btn-visualizar { 
+            background-color: #FFC107; 
+            color: black; 
+            display: block; 
+            margin: 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Procesamiento de Imágenes Médicas</h1>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="imagenes/P14_T2.png" alt="Imagen 2D" class="image-placeholder">
+            <button class="btn-2D" onclick="process2D()">Procesar 2D</button>
+        </div>
+        <div class="image-container">
+            <img src="imagenes/procesamiento_3D.png" alt="Imagen 3D" class="image-placeholder">
+            <button class="btn-3D" onclick="process3D()">Procesar 3D</button>
+        </div>
+    </div>
+
+    <button class="btn-visualizar" onclick="visualize3D()">Visualizar</button>
+
+    <p id="message"></p>
+</body>
+</html>

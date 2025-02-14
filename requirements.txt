@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+nibabel
+numpy
+natsort
+nnunetv2
+matplotlib
+segmentation-models-pytorch
+torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+opencv-python
+nilearn
+scikit-image
